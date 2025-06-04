@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko" style="overflow: hidden; height: 100%;">
+<head>
+  <meta charset="UTF-8">
+  <title>채팅</title>
+  <style>
+    html, body {
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      font-family: sans-serif;
+      background: transparent;
+      font-size: 12px; /* 폰트 크기 줄임 */
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .messages {
+      flex: 1;
+      overflow-y: auto; /* 세로 스크롤만 필요할 때 표시 */
+      overflow-x: hidden; /* 가로 스크롤 제거 */
+      border: 0; /* 테두리 제거 */
+      padding: 10px;
+      margin-bottom: 5px;
+      background-color: transparent; /* 배경 투명하게 */
+      font-size: 12px; /* 폰트 크기 줄임 */
+    }
+    .input-area {
+      position: sticky;
+      bottom: 0;
+      background: white;
+      padding: 0;
+      margin-top: auto; /* 하단에 붙이기 */
+      flex-shrink: 0;
+    }
+    .input-field {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+      font-size: 12px; /* 폰트 크기 줄임 */
+    }
+    .send-button {
+      width: 100%;
+      padding: 8px;
+      background: #4285f4;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 12px; /* 폰트 크기 줄임 */
+    }
+    .message {
+      margin-bottom: 5px;
+      font-size: 12px; /* 폰트 크기 줄임 */
+    }
+    .username {
+      font-weight: auto;
+      font-size: 12px; /* 폰트 크기 줄임 */
+    }
+    .text {
+      font-size: 12px; /* 폰트 크기 줄임 */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="messages" class="messages">메시지를 불러오는 중...</div>
+    <div class="input-area">
+      <input type="text" id="nickname" class="input-field" placeholder="닉네임을 입력하세요">
+      <input type="text" id="message" class="input-field" placeholder="메시지를 입력하세요">
+      <button id="send" class="send-button">전송</button>
+    </div>
+  </div>
+
+  <script>
+    // 전체 문서에 스크롤 방지 추가
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    
+    // 초기화
+    document.addEventListener('DOMContentLoaded', function() {
+      // 저장된 닉네임 불러오기
+      var savedNickname = localStorage.getItem('chatNickname');
+      if (savedNickname) {
+        document.getElementById('nickname').value = savedNickname;
+      }
+      
+      // 이벤트 리스너 등록
+      document.getElementById('send').addEventListener('click', sendMessage);
+      document.getElementById('message').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+      });
+      document.getElementById('nickname').addEventListener('change', function() {
+        localStorage.setItem('chatNickname', this.value);
+      });
+      
+      // 처음 메시지 로드
+      loadMessages();
+      
+      // 정기적으로 새 메시지 확인
+      setInterval(loadMessages, 3000);
+    });
+    
+    // 메시지 전송
+    function sendMessage() {
+      var nickname = document.getElementById('nickname').value.trim();
+      var message = document.getElementById('message').value.trim();
+      
+      if (!nickname || !message) {
+        return; // 닉네임이나 메시지가 비어있으면 무시
+      }
+      
+      // 입력창 초기화
+      document.getElementById('message').value = '';
+      
+      // 서버로 전송
+      google.script.run
+        .withSuccessHandler(function() {
+          loadMessages(); // 성공하면 메시지 목록 새로고침
+        })
+        .withFailureHandler(function(error) {
+          console.error('메시지 전송 실패:', error);
+          alert('메시지 전송에 실패했습니다.');
+        })
+        .writeChatMessage(nickname, message);
+    }
+    
+    // 메시지 목록 불러오기
+    function loadMessages() {
+      google.script.run
+        .withSuccessHandler(function(messages) {
+          displayMessages(messages);
+        })
+        .withFailureHandler(function(error) {
+          console.error('메시지 로드 실패:', error);
+          document.getElementById('messages').innerHTML = 
+            '<div style="color:red;text-align:center;padding:20px;">메시지를 불러올 수 없습니다</div>';
+        })
+        .getAllMessages();
+    }
+    
+    // 메시지 표시
+    function displayMessages(messages) {
+      var container = document.getElementById('messages');
+      
+      if (!messages || messages.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:20px;color:#888;">아직 메시지가 없습니다</div>';
+        return;
+      }
+      
+      var html = '';
+      for (var i = 0; i < messages.length; i++) {
+        var color = generateColorFromText(messages[i].user);
+        html += '<div class="message">' +
+          '<span class="username" style="color:' + color + '">' + escapeHtml(messages[i].user) + ': </span>' +
+          '<span class="text">' + escapeHtml(messages[i].message) + '</span>' +
+          '</div>';
+      }
+      
+      container.innerHTML = html;
+      container.scrollTop = container.scrollHeight; // 스크롤을 항상 아래로
+    }
+    
+    // 닉네임에서 색상 생성
+    function generateColorFromText(text) {
+      var hash = 0;
+      for (var i = 0; i < text.length; i++) {
+        hash = text.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      
+      var h = Math.abs(hash) % 360;
+      var s = 50 + (Math.abs(hash) % 30);
+      var l = 35 + (Math.abs(hash) % 15);
+      
+      return 'hsl(' + h + ',' + s + '%,' + l + '%)';
+    }
+    
+    // HTML 이스케이프 (보안)
+    function escapeHtml(text) {
+      var div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
