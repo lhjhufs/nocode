@@ -2,4 +2,4 @@
 📢 .gs 파일은 GAS(Google Apps Script) 코드 파일로 GAS에서 불러오기 하여 사용합니다. <br>
 🔑 YOUR API KEY, YOUR FOLDER ID, YOUR SHEETS ID 부분은 본인이 가지고 있는 KEY와 ID를 넣으시면 됩니다. <br>
 🔖 GAS는 Google Sheets와 연동하여 작동합니다.반드시 '시트명'을 확인해 주세요. <br>
-🔗 https://liboss.kr/beijing/를 통해 확인 가능합니다. 
+🔗 https://liboss.kr/beijing/ 에서 확인 가능합니다. 
