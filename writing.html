@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>문장 따라쓰기 연습</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans SC', sans-serif;
+      background: transparent; /* 배경색 제거 */
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* 위로 정렬 */
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding-top: 50px; /* 위쪽 간격 조정 */
+      background-color: transparent; /* 배경색 제거 */
+      overflow: hidden;
+    }
+    
+    .language-selector {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      border-radius: 10px; /* 모서리 둥글게 */
+      margin-bottom: 20px;
+    }
+    
+    .language-btn {
+      padding: 8px 15px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .language-btn.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .language-btn:not(.active) {
+      background-color: #e0e0e0;
+      color: black;
+    }
+    
+    .content {
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .message-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 100px;
+    }
+    
+    .play-button {
+      background-color: #4CAF50;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      cursor: pointer;
+      font-size: 18px;
+      border: none;
+      flex-shrink: 0; /* 버튼 크기 고정 */
+      position: relative; /* 위치 조정을 위해 */
+      top: 0; /* 위치 조정 */
+    }
+    
+    .play-button.playing {
+      background-color: #f44336; /* 재생 중일 때 빨간색으로 변경 */
+    }
+    
+    .play-button.playing::after {
+      content: "■"; /* 재생 중일 때 정지 아이콘으로 변경 */
+    }
+    
+    .message {
+      font-size: 24px;
+      line-height: 1.5;
+      min-height: 36px; /* 높이 조정 */
+      display: inline-block;
+      text-align: left; /* 문장 왼쪽 정렬 */
+    }
+    
+    .input-area {
+      display: flex;
+      margin-top: 100px;
+    }
+    
+    .chat-input {
+      flex: 1;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 50px;
+      font-size: 16px;
+      outline: none;
+    }
+    
+    .send-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .counter {
+      margin-top: 10px;
+      color: #888;
+      font-size: 14px;
+    }
+    
+    .error-message {
+      text-align: center;
+      color: #d9534f;
+      padding: 2rem;
+      font-weight: bold;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      font-style: italic;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="language-selector">
+      <button id="zh-btn" class="language-btn active">중국어</button>
+      <button id="ko-btn" class="language-btn">한국어</button>
+    </div>
+    
+    <div class="content">
+      <div class="message-container">
+        <button id="play-btn" class="play-button">▶</button>
+        <div id="message" class="message">
+          데이터를 불러오는 중...
+        </div>
+      </div>
+      
+      <div class="input-area">
+        <input type="text" id="chat-input" class="chat-input" placeholder="문장을 따라쓰세요...">
+        <button id="send-btn" class="send-btn">→</button>
+      </div>
+      <div id="counter" class="counter">0/0</div>
+    </div>
+  </div>
+
+  <script>
+    // URL에서 스프레드시트 URL 가져오기
+    function getSheetURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let sheetURL = urlParams.get('url');
+      
+      console.log("받은 URL 파라미터:", sheetURL); // 디버깅용
+      
+      // URL 파라미터가 없는 경우
+      if (!sheetURL) {
+        console.log("URL 파라미터 없음, 오류 표시"); // 디버깅용
+        return null;
+      }
+      
+      // URL 디코딩 (URL이 이미 인코딩되어 있을 수 있음)
+      try {
+        if (sheetURL.includes('%')) {
+          sheetURL = decodeURIComponent(sheetURL);
+          console.log("URL 디코딩 후:", sheetURL); // 디버깅용
+        }
+      } catch (e) {
+        console.error("URL 디코딩 오류:", e); // 디버깅용
+      }
+      
+      return sheetURL;
+    }
+    
+    // 스프레드시트 ID 추출
+    function extractSheetID(url) {
+      if (!url) return null;
+      
+      // 전체 URL인 경우 ID 추출
+      if (url.includes('spreadsheets/d/')) {
+        const match = url.match(/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+        if (match && match[1]) return match[1];
+      }
+      
+      // ID만 있는 경우 그대로 반환
+      if (!url.includes('http') && !url.includes('/')) {
+        return url;
+      }
+      
+      return null;
+    }
+    
+    // 앱 초기화
+    function initializeApp() {
+      // 변수 및 요소 초기화
+      let sentences = [];
+      let currentIndex = 0;
+      let currentLang = 'zh'; // 기본값: 중국어
+      let isPlaying = false; // 음성 재생 상태
+      
+      // 피드백 메시지 정의
+      const feedbackMessages = [
+        '잘했어요! 정확하게 따라 썼습니다.',
+        '다시 시도해보세요. 예시와 정확히 같게 입력해주세요.'
+      ];
+      
+      // 스프레드시트 URL 또는 ID 가져오기
+      const sheetURL = getSheetURL();
+      const sheetID = extractSheetID(sheetURL);
+      
+      if (!sheetID) {
+        document.querySelector('.content').innerHTML = `
+          <div class="error-message">
+            유효한 스프레드시트 URL 또는 ID가 필요합니다.
+          </div>`;
+        return;
+      }
+      
+      // DOM 요소 참조
+      const messageEl = document.getElementById('message');
+      const counterEl = document.getElementById('counter');
+      const zhBtn = document.getElementById('zh-btn');
+      const koBtn = document.getElementById('ko-btn');
+      const chatInput = document.getElementById('chat-input');
+      const sendBtn = document.getElementById('send-btn');
+      const playBtn = document.getElementById('play-btn');
+      
+      // 피드백 메시지인지 확인하는 함수
+      function isFeedbackMessage(message) {
+        return feedbackMessages.includes(message);
+      }
+      
+      // 음성 중지 함수
+      function stopSpeech() {
+        if (isPlaying) {
+          speechSynthesis.cancel();
+          isPlaying = false;
+          playBtn.classList.remove('playing');
+          playBtn.innerHTML = '▶';
+        }
+      }
+      
+      // 음성 재생 함수
+      function playCurrentSentence() {
+        // 이미 재생 중이면 중지
+        if (isPlaying) {
+          stopSpeech();
+          return;
+        }
+        
+        if (sentences.length === 0 || !sentences[currentIndex]) return;
+        
+        speechSynthesis.cancel(); // 이전 음성 중지
+        
+        const sentence = sentences[currentIndex];
+        const textToSpeak = currentLang === 'zh' ? sentence.chinese : sentence.korean;
+        const lang = currentLang === 'zh' ? 'zh-CN' : 'ko-KR';
+        
+        const utter = new SpeechSynthesisUtterance(textToSpeak);
+        utter.lang = lang;
+        utter.rate = 0.9;
+        
+        // 재생 상태 변경
+        isPlaying = true;
+        playBtn.classList.add('playing');
+        playBtn.innerHTML = '■';
+        
+        // 음성 재생 완료 이벤트
+        utter.onend = function() {
+          isPlaying = false;
+          playBtn.classList.remove('playing');
+          playBtn.innerHTML = '▶';
+        };
+        
+        speechSynthesis.speak(utter);
+      }
+      
+      // 다른 동작 시 음성 중지 (언어 전환, 문장 전환 등)
+      function stopSpeechOnChange() {
+        stopSpeech();
+      }
+      
+      // 재생 버튼 이벤트 리스너
+      playBtn.addEventListener('click', playCurrentSentence);
+      
+      // 데이터 로드 함수
+      function loadData() {
+        messageEl.textContent = '데이터를 불러오는 중...';
+        
+        // 스프레드시트에서 데이터 가져오기 (A열:한국어, B열:중국어)
+        fetch(`https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:csv&sheet=Sheet1&range=A2:B`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('스프레드시트를 불러오는데 문제가 발생했습니다.');
+            }
+            return response.text();
+          })
+          .then(csvText => {
+            // CSV 파싱
+            const rows = csvText.split('\n');
+            sentences = [];
+            
+            rows.forEach(row => {
+              if (!row.trim()) return; // 빈 행 건너뛰기
+              
+              const columns = row.split(',');
+              // 따옴표 제거
+              const korean = columns[0] ? columns[0].replace(/^"|"$/g, '') : '';
+              const chinese = columns[1] ? columns[1].replace(/^"|"$/g, '') : '';
+              
+              if (korean || chinese) {
+                sentences.push({
+                  korean: korean,
+                  chinese: chinese
+                });
+              }
+            });
+            
+            if (sentences.length > 0) {
+              updateCounter();
+              
+              // 기본적으로 중국어 문장 표시
+              messageEl.textContent = sentences[currentIndex].chinese;
+              console.log('초기 문장 설정: ', sentences[currentIndex].chinese);
+            } else {
+              messageEl.textContent = '유효한 문장 데이터가 없습니다.';
+            }
+          })
+          .catch(error => {
+            console.error('데이터 로딩 오류:', error);
+            messageEl.textContent = '데이터를 불러오는 중 오류가 발생했습니다.';
+          });
+      }
+      
+      // 현재 문장 표시 함수
+      function displayCurrentSentence() {
+        stopSpeechOnChange(); // 문장 변경 시 음성 중지
+        
+        if (sentences.length > 0) {
+          const sentence = sentences[currentIndex];
+          messageEl.textContent = currentLang === 'zh' ? sentence.chinese : sentence.korean;
+          
+          // 일반 문장일 때는 플레이 버튼 표시
+          playBtn.style.display = 'flex';
+          
+          console.log('표시 문장 변경: ', messageEl.textContent);
+        }
+      }
+      
+      // 카운터 업데이트 함수
+      function updateCounter() {
+        if (sentences.length > 0) {
+          counterEl.textContent = `${currentIndex + 1}/${sentences.length}`;
+        } else {
+          counterEl.textContent = '0/0';
+        }
+      }
+      
+      // 언어 버튼 이벤트 리스너
+      zhBtn.addEventListener('click', function() {
+        stopSpeechOnChange(); // 언어 변경 시 음성 중지
+        currentLang = 'zh';
+        zhBtn.classList.add('active');
+        koBtn.classList.remove('active');
+        displayCurrentSentence();
+      });
+      
+      koBtn.addEventListener('click', function() {
+        stopSpeechOnChange(); // 언어 변경 시 음성 중지
+        currentLang = 'ko';
+        koBtn.classList.add('active');
+        zhBtn.classList.remove('active');
+        displayCurrentSentence();
+      });
+      
+      // 메시지 전송 처리
+      function handleSendMessage() {
+        stopSpeechOnChange(); // 메시지 전송 시 음성 중지
+        
+        if (chatInput.value.trim() !== '' && sentences.length > 0) {
+          const correctSentence = currentLang === 'zh' ? sentences[currentIndex].chinese : sentences[currentIndex].korean;
+          
+          if (chatInput.value === correctSentence) {
+            // 정확히 일치하면 성공 메시지
+            const successMsg = currentLang === 'zh' ? '잘했어요! 정확하게 따라 썼습니다.' : '잘했어요! 정확하게 따라 썼습니다.';
+            messageEl.textContent = successMsg;
+            
+            // 피드백 메시지일 때는 플레이 버튼 숨기기
+            playBtn.style.display = 'none';
+            
+            // 1.5초 후 자동으로 다음 문장으로 (마지막 문장이 아닌 경우)
+            setTimeout(function() {
+              if (currentIndex < sentences.length - 1) {
+                currentIndex++;
+                updateCounter();
+                displayCurrentSentence();
+              } else {
+                displayCurrentSentence();
+              }
+            }, 1500);
+          } else {
+            // 일치하지 않으면 다시 시도 메시지
+            const retryMsg = currentLang === 'zh' ? 
+              '다시 시도해보세요. 예시와 정확히 같게 입력해주세요.' : 
+              '다시 시도해보세요. 예시와 정확히 같게 입력해주세요.';
+            messageEl.textContent = retryMsg;
+            
+            // 피드백 메시지일 때는 플레이 버튼 숨기기
+            playBtn.style.display = 'none';
+            
+            // 1.5초 후 원래 문장 표시
+            setTimeout(function() {
+              displayCurrentSentence();
+            }, 1500);
+          }
+          
+          chatInput.value = '';
+        }
+      }
+      
+      // 전송 버튼 이벤트 리스너
+      sendBtn.addEventListener('click', handleSendMessage);
+      
+      // Enter 키 이벤트 리스너
+      chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          handleSendMessage();
+        }
+      });
+      
+      // 데이터 로드 시작
+      loadData();
+    }
+    
+    // 페이지 로드 시 앱 초기화
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  </script>
+</body>
+</html>
