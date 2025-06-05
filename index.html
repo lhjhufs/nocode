@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ko" style="overflow: hidden; margin: 0; padding: 0; height: 100%;">
+<head>
+<meta charset="UTF-8" />
+<title>베이징 지하철 여행 중국어</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #111;
+    color: #fff;
+    padding: 0 20px;
+    line-height: 60px;
+    font-size: 1.0rem;
+    z-index: 1000;
+    border-bottom: none;
+  }
+  
+header a:hover {
+  text-decoration: none !important; /* 밑줄 제거 및 우선순위 설정 */
+  border-bottom: none !important; /* 하단 테두리 제거 */
+  color: #fff; /* 텍스트 색상 유지 */
+  background-color: transparent; /* 배경색 투명 유지 */
+  outline: none; /* 아웃라인 제거 */
+  box-shadow: none; /* 그림자 효과 제거 */
+}
+
+/* 헤더 내 링크의 모든 상태에서 흰색 유지 */
+header a,
+header a:link,
+header a:visited,
+header a:hover,
+header a:active,
+header a:focus {
+  color: #fff !important; /* 항상 흰색으로 강제 */
+  text-decoration: none !important; /* 밑줄 제거 */
+}
+
+/* 링크에 호버했을 때도 흰색 유지 */
+.sidebar div.menu-item:hover {
+  background: #ddd;
+  color: #333; /* 메뉴 아이템 호버 색상은 원래대로 유지 */
+}
+
+/* 헤더 내 다른 요소들의 색상도 흰색으로 통일 */
+header button,
+header .nav-buttons {
+  color: #fff;
+}
+
+/* 추가: 글로벌 앵커 태그 스타일 재정의 */
+a {
+  text-decoration: none !important;
+}
+         
+  /* 좌측 메뉴 */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100%;
+    background: #f9f9f9;
+    padding-top: 60px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-right: none;
+    font-size: 14px;
+    z-index: 100;
+  }
+  
+  .sidebar details {
+    border-bottom: 1px solid #eee;
+  }
+  
+  .sidebar summary {
+    padding: 12px 16px;
+    background: #eee;
+    cursor: pointer;
+    font-weight: 700;
+    outline: none;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    list-style: none; /* 화살표 제거 */
+  }
+  
+  .sidebar div.menu-item {
+    padding: 8px 24px;
+    cursor: pointer;
+    color: #333;
+    font-size: 13px;
+    transition: background-color 0.2s;
+  }
+  
+  .sidebar div.menu-item:hover {
+    background: #ddd;
+  }
+  
+  .sidebar div.menu-item.active {
+    background-color: #b0c8e3;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .sidebar details.active > summary {
+    background-color: rgb(116, 170, 247);
+    color: #000;
+  }
+
+  /* 중앙 뷰어 영역 */
+  .main { 
+    position: fixed;
+    top: 60px;
+    left: 260px;
+    width: calc(100% - 560px);
+    height: calc(100% - 60px);
+    background-color: #000;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .viewer-wrapper { 
+    position: relative; 
+    width: 100%; 
+    height: 100%; 
+  }
+  
+  .viewer-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .iframe-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  .video-container {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+  }
+  
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  .embed-container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+  
+  .embed-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  .flashcard-container,
+  .writing-container,
+  .translation-container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+  
+  .flashcard-container iframe,
+  .writing-container iframe,
+  .translation-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    z-index: 10;
+  }
+  
+  .week-badge {
+    background: #fff;
+    color: #000;
+    padding: 6px 18px;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  }
+  
+  .title-text {
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-shadow: 0 3px 6px rgba(0,0,0,.6);
+    white-space: nowrap;
+    text-align: center;
+  }
+  
+  /* 우측 패널 */
+  .panel {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: 300px;
+    height: calc(100% - 60px);
+    background: #fff;
+    border-left: none;
+    overflow: hidden; /* 중요: 외부 스크롤 제거 */
+    display: none;
+  }
+  
+  .panel.active {
+    display: block;
+  }
+  
+  /* 검색 패널 */
+  #searchPanel {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .search-box {
+    display: flex;
+    margin: 10px;
+    padding: 5px;
+    flex-shrink: 0;
+  }
+  
+  .search-box input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-right: none;
+    outline: none;
+    font-size: 14px;
+  }
+  
+  .search-box button {
+    background: #4285f4;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .search-results {
+    flex: 1;
+    overflow-y: auto; /* 내부 스크롤만 유지 */
+    overflow-x: hidden; /* 가로 스크롤 제거 */
+    padding: 10px;
+  }
+  
+  .thumb-item {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    background: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .thumb-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  .thumb-info {
+    padding: 10px;
+  }
+  
+  .thumb-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+  }
+  
+  .thumb-desc {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+  }
+  
+  .thumb-type {
+    display: inline-block;
+    padding: 3px 8px;
+    background: #f0f0f0;
+    border-radius: 12px;
+    font-size: 11px;
+    color: #555;
+  }
+  
+  /* 네비게이션 버튼 */
+  .nav-buttons {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .nav-button {
+    padding: 6px 12px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .nav-button:hover {
+    background: #444;
+  }
+  
+  .nav-button.active {
+    background: #0066cc;
+  }
+  
+  /* 채팅 패널 - 수정됨 */
+  #chatPanel {
+    overflow: hidden !important;
+  }
+  
+  .chat-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    overflow: hidden !important;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <a href="https://liboss.kr/beijing/">베이징 지하철 여행 중국어</a>
+    <div class="nav-buttons">
+      <button id="searchBtn" class="nav-button active">검색</button>
+      <button id="chatBtn" class="nav-button">채팅</button>
+      <button id="dictBtn" class="nav-button">질문</button>
+    </div>
+  </header>
+
+  <!-- 좌측 메뉴 -->
+  <nav class="sidebar" id="menu"></nav>
+
+  <!-- 중앙 이미지 영역 -->
+  <main class="main">
+    <div id="viewer" style="width: 100%; height: 100%; position: relative;">로딩 중…</div>
+  </main>
+
+  <!-- 우측 패널들 -->
+  <aside id="searchPanel" class="panel active">
+    <div class="search-box">
+      <input id="searchInput" placeholder="검색어 입력">
+      <button onclick="doSearch()">검색</button>
+    </div>
+    <div id="searchList" class="search-results"></div>
+  </aside>
+  
+  <aside id="chatPanel" class="panel">
+    <iframe id="chatIframe" class="chat-iframe" src="" onload="modifyChatIframe()"></iframe>
+  </aside>
+
+  <aside id="dictPanel" class="panel">
+    <div style="height: 100%; display: flex; flex-direction: column;">
+      <!-- GAS 웹 앱을 iframe에 포함 -->
+      <iframe id="aiAssistantFrame" src="WEB APP LINK"></iframe>
+    </div>
+  </aside>
+  
+<script>
+    const SHEET_ID   = 'YOUR SHEETS ID';
+    const INTRO_SHEET= 'intro_자동';
+    const MENU_SHEET = '메뉴명';
+    const CONTENT_SHEET = '콘텐츠';
+    const CHAT_ID_SHEET = '채팅ID'; // 새로 추가한 채팅 ID 시트
+    const FLASHCARD_PATH = '/beijing/flashcard.html';
+    const WRITING_PATH = '/beijing/writing.html';
+    
+    let introData  = [];
+    let subMenus   = [];
+    let contentData = [];
+    let chatIDs = []; // 채팅 ID 저장 배열 추가
+    let currentWeek = ''; // 현재 선택된 주차 저장 변수
+    
+    // 썸네일 이미지 매핑
+    const typeThumbnails = {
+      '영상-구글': 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png',
+      '영상-유튜브': 'https://www.youtube.com/s/desktop/28b8537c/img/favicon_144x144.png',
+      '웹페이지-감마': 'https://static-assets.gamma.app/brand/gamma-icon-228x228.png',
+      '웹페이지': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Google_Chrome_icon_%282011%29.png/768px-Google_Chrome_icon_%282011%29.png',
+      '영상': 'https://cdn-icons-png.flaticon.com/512/3670/3670147.png',
+      '이미지': 'https://cdn-icons-png.flaticon.com/512/4503/4503941.png',
+      '외문법': 'https://cdn-icons-png.flaticon.com/512/1573/1573031.png',
+      '텍스트': 'https://cdn-icons-png.flaticon.com/512/2541/2541988.png',
+      '플래시카드': 'https://cdn-icons-png.flaticon.com/512/4295/4295919.png'
+      
+    };
+    
+    // 전체 문서에 스크롤 방지 적용
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    
+    /* 시트 읽기 */ 
+    function fetchSheet(sheet, cb){
+      const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheet)}`;
+      fetch(url).then(r=>r.text()).then(t=>JSON.parse(t.substring(47).slice(0,-2)))
+        .then(j=>cb(j.table.rows.slice(1).map(r=>r.c.map(c=>c?.v||""))));
+    }
+    
+    function init(){
+      fetchSheet(INTRO_SHEET, rows => {
+        introData = rows.map(r => ({week: r[0], title: r[1], img: r[2]}));
+        
+        fetchSheet(MENU_SHEET, rows => {
+          subMenus = rows.map(r => ({week: r[0], menu: r[1], type: r[2], url: r[3]}));
+          
+          fetchSheet(CONTENT_SHEET, rows => {
+            contentData = rows.map(r => ({
+              type: r[0],
+              keyword: r[1],
+              link: r[2]
+            }));
+            
+            // 채팅 ID 시트 불러오기 추가
+            fetchSheet(CHAT_ID_SHEET, rows => {
+              chatIDs = rows.map(r => ({
+                week: r[0], // A열: 주차 (예: 1-1)
+                id: r[1]    // B열: 채팅 애플리케이션 ID
+              }));
+              
+              buildMenu();
+              if (introData.length) {
+                showImage(introData[0]);
+                currentWeek = introData[0].week;
+                updateChatIframe(currentWeek);
+              }
+              setupNavButtons();
+              setupSearchKeypress(); // 검색창 엔터키 이벤트 설정 추가
+            });
+          });
+        });
+      });
+    }
+    
+    // 주차에 맞는 채팅 ID를 찾아 iframe 업데이트
+    function updateChatIframe(week) {
+      // 주차에 맞는 채팅 ID 찾기
+      const weekPrefix = week.split('-')[0]; // 1-1, 1-2 등에서 앞부분(1)만 추출
+      
+      // 같은 주차에 해당하는 채팅 ID 찾기
+      const chatData = chatIDs.find(item => item.week.startsWith(weekPrefix));
+      
+      if (chatData && chatData.id) {
+        const chatUrl = `https://script.google.com/macros/s/${chatData.id}/exec`;
+        document.getElementById('chatIframe').src = chatUrl;
+        console.log(`채팅 iframe 업데이트: 주차 ${week}, ID ${chatData.id}`);
+      } else {
+        console.log(`해당 주차(${week})에 대한 채팅 ID를 찾을 수 없습니다.`);
+        // 기본 채팅 ID가 있다면 설정할 수 있습니다.
+        if (chatIDs.length > 0) {
+          const defaultChatUrl = `https://script.google.com/macros/s/${chatIDs[0].id}/exec`;
+          document.getElementById('chatIframe').src = defaultChatUrl;
+        } else {
+          document.getElementById('chatIframe').src = "";
+        }
+      }
+    }
+    
+    // 채팅 iframe 내부 스타일 수정 - 업데이트됨
+    function modifyChatIframe() {
+      try {
+        const iframe = document.getElementById('chatIframe');
+        if (!iframe || !iframe.contentWindow || !iframe.contentDocument) {
+          console.log('iframe에 접근할 수 없습니다. 다시 시도합니다.');
+          setTimeout(modifyChatIframe, 1000);
+          return;
+        }
+            
+        // iframe 자체의 스크롤 제거
+        iframe.style.overflow = 'hidden';
+            
+        // iframe 내부 스타일 접근 오류 처리
+        try {
+          // 내부 스타일 수정 시도
+          if (iframe.contentDocument && iframe.contentDocument.head) {
+            const styleElement = document.createElement('style');
+            styleElement.textContent = `
+              /* 스타일 내용 */
+            `;
+            iframe.contentDocument.head.appendChild(styleElement);
+            console.log('채팅 iframe 스타일이 성공적으로 적용되었습니다.');
+          }
+        } catch (styleError) {
+          console.warn('iframe 내부 스타일 적용 실패, 보안 정책 제한일 수 있습니다:', styleError);
+        }
+      } catch (e) {
+        console.error('채팅 iframe 스타일 적용 중 오류 발생:', e);
+      }
+    }
+    
+    /* 좌측 메뉴 만들기 */
+    function buildMenu(){
+      const menuDiv = document.getElementById('menu'); 
+      menuDiv.innerHTML = '';
+      
+      let activeDetail = null;
+      let activeMenuItem = null;
+      
+      introData.forEach(item => {
+        const details = document.createElement('details');
+        details.className = 'menu-section';
+        
+        const summary = document.createElement('summary');
+        summary.textContent = `${item.week} ${item.title}`;
+        
+        summary.onclick = function(e) {
+          document.querySelectorAll('.menu-section').forEach(el => {
+            if (el !== this.parentNode && el.hasAttribute('open')) {
+              el.removeAttribute('open');
+            }
+          });
+          
+          if (activeDetail) activeDetail.classList.remove('active');
+          if (activeMenuItem) activeMenuItem.classList.remove('active');
+          
+          activeDetail = this.parentNode;
+          activeDetail.classList.add('active');
+          
+          // 현재 주차 업데이트 및 채팅 iframe 업데이트
+          currentWeek = item.week;
+          updateChatIframe(currentWeek);
+          
+          showImage(item);
+        };
+        
+        details.appendChild(summary);
+    
+        subMenus.filter(s => s.week === item.week).forEach(s => {
+          const div = document.createElement('div');
+          div.className = 'menu-item'; 
+          div.textContent = s.menu;
+          
+          div.onclick = function() {
+            document.querySelectorAll('.menu-section').forEach(el => {
+              if (el !== this.closest('.menu-section') && el.hasAttribute('open')) {
+                el.removeAttribute('open');
+              }
+            });
+            
+            if (activeMenuItem) activeMenuItem.classList.remove('active');
+            if (activeDetail) activeDetail.classList.remove('active');
+            
+            activeMenuItem = this;
+            activeDetail = this.closest('.menu-section');
+            
+            activeMenuItem.classList.add('active');
+            activeDetail.classList.add('active');
+            
+            // 현재 주차 업데이트 및 채팅 iframe 업데이트
+            currentWeek = item.week;
+            updateChatIframe(currentWeek);
+            
+            if (s.url && s.url.trim() !== "") {
+              showContent(s);
+            } else {
+              showImage(item);
+            }
+          };
+          
+          details.appendChild(div);
+        });
+        
+        menuDiv.appendChild(details);
+      });
+    }
+    
+    function showContent(menuItem) {
+      if (!menuItem.url || menuItem.url.trim() === "") {
+        console.error("URL이 없거나 유효하지 않습니다.");
+        return;
+      }
+    
+      const type = (menuItem.type || "").toLowerCase();
+      const url = menuItem.url;
+      
+      if (type.includes("영상-구글")) {
+        showVideo(url, "구글");
+      } else if (type.includes("영상-유튜브")) {
+        showVideo(url, "유튜브"); 
+      } else if (type.includes("영상")) {
+        showVideo(url);
+      } else if (type.includes("외부링크")) {
+        showEmbed(url);
+      } else if (type.includes("웹페이지")) {  // 여기에 웹페이지 타입 추가
+        showWebPage(url);
+      } else if (type.includes("링크")) {
+        showWebPage(url);
+      } else if (type.includes("이미지")) {
+        showImageUrl(url, menuItem.menu);
+      } else if (type.includes("시트-플래시카드")) {
+        showFlashcard(url);
+      } else if (type.includes("시트-따라쓰기")) {
+        showSentenceWriting(url);
+      } else if (type.includes("시트-해석하기")) {
+        showTranslation(url);
+      } else if (type.includes("시트")) {
+        showFlashcard(url);
+      } else {
+        showWebPage(url);
+      }
+    }
+    
+    /* 이미지 표시 */
+    function showImage(item){
+      document.getElementById('viewer').innerHTML = `
+        <div class="viewer-wrapper">
+          <img src="${item.img}" alt="${item.title}" onerror="this.style.opacity=.2;">
+          <div class="overlay">
+            <div class="week-badge">${item.week}</div>
+            <div class="title-text">${item.title}</div>
+          </div>
+        </div>`;
+    }
+    
+    /* 이미지 URL 표시 */
+    function showImageUrl(url, title){
+      document.getElementById('viewer').innerHTML = `
+        <div class="viewer-wrapper">
+          <img src="${url}" alt="${title}" onerror="this.style.opacity=.2;">
+        </div>`;
+    }
+    
+    /* 외부 임베드 표시 - HTTP -> HTTPS 변환 추가 */
+    function showEmbed(url) {
+      // HTTP URL을 HTTPS로 변환
+      if (url && url.startsWith('http:')) {
+        url = url.replace('http:', 'https:');
+      }
+      
+      if (url && url.includes('gamma.app/embed/')) {
+        document.getElementById('viewer').innerHTML = `
+          <div class="embed-container">
+            <iframe src="${url}" allowfullscreen></iframe>
+          </div>`;
+        return;
+      }
+      
+      if (url && url.startsWith('<iframe')) {
+        // iframe 태그 내의 src 속성에서 http: -> https: 변환
+        if (url.includes('src="http:')) {
+          url = url.replace(/src="http:/g, 'src="https:');
+        }
+        document.getElementById('viewer').innerHTML = `
+          <div class="embed-container">${url}</div>`;
+      } else if (url) {
+        document.getElementById('viewer').innerHTML = `
+          <div class="embed-container">
+            <iframe src="${url}" allowfullscreen></iframe>
+          </div>`;
+      }
+    }
+    
+    /* 플래시카드 표시 */
+    function showFlashcard(sheetURL) {
+      let encodedURL = sheetURL;
+      if (!sheetURL.startsWith('http')) {
+        encodedURL = 'https://docs.google.com/spreadsheets/d/' + sheetURL;
+      }
+      
+      encodedURL = encodeURIComponent(encodedURL);
+      
+      document.getElementById('viewer').innerHTML = `
+        <div class="flashcard-container">
+          <iframe src="${FLASHCARD_PATH}?url=${encodedURL}" allowfullscreen></iframe>
+        </div>`;
+    }
+    
+    /* 문장 따라쓰기 표시 */
+    function showSentenceWriting(sheetURL) {
+      let sheetID = sheetURL;
+      
+      if (sheetURL.includes('spreadsheets/d/')) {
+        const match = sheetURL.match(/spreadsheets\/d\/([a-zA-Z0-9_-]+)/);
+        if (match && match[1]) {
+          sheetID = match[1];
+        }
+      }
+      
+      const fullURL = `https://liboss.kr/beijing/writing.html?url=${sheetID}`;
+      
+      document.getElementById('viewer').innerHTML = `
+        <div class="writing-container">
+          <iframe src="${fullURL}" allowfullscreen></iframe>
+        </div>`;
+    }
+    
+    /* 문장 해석하기 표시 */
+    function showTranslation(sheetURL) {
+      document.getElementById('viewer').innerHTML = `
+        <div class="info-message" style="text-align: center; padding: 2rem;">
+          <h2>문장 해석하기</h2>
+          <p>이 기능은 아직 개발 중입니다.</p>
+          <p>스프레드시트 ID: ${sheetURL}</p>
+        </div>`;
+    }
+    
+    /* 비디오 표시 - HTTP -> HTTPS 변환 추가 */
+    function showVideo(url, videoType) {
+      const type = videoType || '';
+      
+      // HTTP URL을 HTTPS로 변환
+      if (url && url.startsWith('http:')) {
+        url = url.replace('http:', 'https:');
+      }
+      
+      if (type.includes('구글') || (url && url.includes('drive.google.com/file/d/'))) {
+        let fileId;
+        if (url && url.includes('/d/')) {
+          const match = url.match(/\/d\/([^\/]+)/);
+          if (match && match[1]) {
+            fileId = match[1];
+          }
+        } else {
+          fileId = url;
+        }
+        
+        if (fileId) {
+          const embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+          document.getElementById('viewer').innerHTML = `
+            <div class="video-container">
+              <iframe src="${embedUrl}" allowfullscreen></iframe>
+            </div>`;
+          return;
+        }
+      }
+      
+      if (type.includes('유튜브') || (url && (url.includes('youtube.com') || url.includes('youtu.be')))) {
+        let videoId;
+        
+        if (url && url.includes('youtube.com/watch?v=')) {
+          const match = url.match(/v=([^&]+)/);
+          if (match && match[1]) {
+            videoId = match[1];
+          }
+        } else if (url && url.includes('youtu.be/')) {
+          const match = url.match(/youtu\.be\/([^?&]+)/);
+          if (match && match[1]) {
+            videoId = match[1];
+          }
+        } else {
+          videoId = url;
+        }
+        
+        if (videoId) {
+          const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+          document.getElementById('viewer').innerHTML = `
+            <div class="video-container">
+              <iframe src="${embedUrl}" allowfullscreen></iframe>
+            </div>`;
+          return;
+        }
+      }
+      
+      if (url) {
+        document.getElementById('viewer').innerHTML = `
+          <div class="video-container">
+            <iframe src="${url}" allowfullscreen></iframe>
+          </div>`;
+      }
+    }
+    
+    /* 웹 페이지 표시 - HTTP -> HTTPS 변환 개선 */
+    function showWebPage(url) {
+      // HTTP URL을 HTTPS로 변환
+      if (url && url.startsWith('http:')) {
+        url = url.replace('http:', 'https:');
+      }
+      
+      if (url) {
+        document.getElementById('viewer').innerHTML = `
+          <div class="iframe-container">
+            <iframe src="${url}" allowfullscreen></iframe>
+          </div>`;
+      }
+    }
+
+    /* 검색 결과 클릭 시 콘텐츠 표시 */
+    function showContentItem(contentItem) {
+      const type = (contentItem.type || "").toLowerCase();
+      const url = contentItem.link;
+      
+      if (!url || url.trim() === "") {
+        console.error("URL이 없거나 유효하지 않습니다.");
+        return;
+      }
+      
+      // HTTP URL을 HTTPS로 변환
+      if (url.startsWith('http:')) {
+        contentItem.link = url.replace('http:', 'https:');
+      }
+      
+      if (type.includes("영상-구글")) {
+        showVideo(contentItem.link, "구글");
+      } else if (type.includes("영상-유튜브")) {
+        showVideo(contentItem.link, "유튜브");
+      } else if (type.includes("영상")) {
+        showVideo(contentItem.link);
+      } else if (type.includes("외부링크")) {
+        showEmbed(contentItem.link);
+      } else if (type.includes("웹페이지")) {
+        showWebPage(contentItem.link);
+      } else if (type.includes("이미지")) {
+        showImageUrl(contentItem.link, contentItem.keyword);
+      } else if (type.includes("텍스트") || type.includes("외문법")) {
+        showWebPage(contentItem.link);
+      } else {
+        showWebPage(contentItem.link);
+      }
+    }
+    
+    /* 검색 기능 */
+    function doSearch() {
+      const kw = document.getElementById('searchInput').value.toLowerCase();
+      const list = document.getElementById('searchList');
+      list.innerHTML = '';
+      
+      if (kw.trim() === '') return;
+      
+      const matchedContent = contentData.filter(c => 
+        c.keyword.toLowerCase().includes(kw) || 
+        c.type.toLowerCase().includes(kw)
+      );
+      
+      if (matchedContent.length === 0) {
+        list.innerHTML = '<div style="padding: 15px; text-align: center;">검색 결과가 없습니다.</div>';
+        return;
+      }
+      
+      matchedContent.forEach(content => {
+        const thumbnailUrl = typeThumbnails[content.type] || 'https://via.placeholder.com/80x60.png?text=기타';
+        
+        const thumbItem = document.createElement('div');
+        thumbItem.className = 'thumb-item';
+        thumbItem.innerHTML = `
+          <div class="thumb-info">
+            <div class="thumb-title">${content.keyword}</div>
+            <div class="thumb-desc">${content.link.substring(0, 50)}${content.link.length > 50 ? '...' : ''}</div>
+            <div class="thumb-type">${content.type}</div>
+          </div>
+          `;
+        thumbItem.onclick = () => showContentItem(content);
+        list.appendChild(thumbItem);
+      });
+      
+      const matchedLessons = introData.filter(d => d.title.toLowerCase().includes(kw));
+      const matchedSubMenus = subMenus.filter(s => s.menu.toLowerCase().includes(kw));
+  
+      if (matchedLessons.length > 0 || matchedSubMenus.length > 0) {
+        const divider = document.createElement('div');
+        divider.style.margin = '15px 0';
+        divider.style.borderBottom = '1px solid #ddd';
+        list.appendChild(divider);
+        
+        matchedLessons.forEach(lesson => {
+          const thumbItem = document.createElement('div');
+          thumbItem.className = 'thumb-item';
+          thumbItem.innerHTML = `
+            <div class="thumb-info">
+              <div class="thumb-title">${lesson.week} ${lesson.title}</div>
+              <div class="thumb-type">차시</div>
+            </div>
+          `;
+          thumbItem.onclick = () => {
+            showImage(lesson);
+            // 검색 결과에서 주차 클릭 시 채팅 iframe 업데이트
+            currentWeek = lesson.week;
+            updateChatIframe(currentWeek);
+          };
+          list.appendChild(thumbItem);
+        });
+        
+        matchedSubMenus.forEach(submenu => {
+          const thumbItem = document.createElement('div');
+          thumbItem.className = 'thumb-item';
+          thumbItem.innerHTML = `
+            <div class="thumb-info">
+              <div class="thumb-title">${submenu.menu}</div>
+              <div class="thumb-desc">${submenu.week}</div>
+              <div class="thumb-type">${submenu.type || '메뉴'}</div>
+            </div>
+          `;
+          
+          if (submenu.url && submenu.url.trim() !== "") {
+            thumbItem.onclick = () => {
+              showContent(submenu);
+              // 검색 결과에서 메뉴 클릭 시 채팅 iframe 업데이트
+              currentWeek = submenu.week;
+              updateChatIframe(currentWeek);
+            };
+          } else {
+            const parentItem = introData.find(item => item.week === submenu.week);
+            if (parentItem) {
+              thumbItem.onclick = () => {
+                showImage(parentItem);
+                // 검색 결과에서 메뉴 클릭 시 채팅 iframe 업데이트
+                currentWeek = submenu.week;
+                updateChatIframe(currentWeek);
+              };
+            }
+          }
+          
+          list.appendChild(thumbItem);
+        });
+      }
+    }
+    
+    /* 검색창에 엔터키 이벤트 추가 */
+    function setupSearchKeypress() {
+      document.getElementById('searchInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          doSearch();
+        }
+      });
+    }
+    
+    /* 네비게이션 버튼 설정 */
+    function setupNavButtons() {
+      const searchBtn = document.getElementById('searchBtn');
+      const chatBtn = document.getElementById('chatBtn');
+      const dictBtn = document.getElementById('dictBtn');
+      
+      const searchPanel = document.getElementById('searchPanel');
+      const chatPanel = document.getElementById('chatPanel');
+      const dictPanel = document.getElementById('dictPanel');
+      
+      // 패널 토글 함수
+      function showPanel(panel) {
+        [searchPanel, chatPanel, dictPanel].forEach(p => {
+          p.classList.remove('active');
+        });
+        panel.classList.add('active');
+      }
+      
+      // 버튼 상태 업데이트 함수
+      function setActiveButton(button) {
+        [searchBtn, chatBtn, dictBtn].forEach(b => {
+          b.classList.remove('active');
+        });
+        button.classList.add('active');
+      }
+      
+      // 이벤트 리스너 설정
+      searchBtn.addEventListener('click', function() {
+        showPanel(searchPanel);
+        setActiveButton(searchBtn);
+      });
+      
+      chatBtn.addEventListener('click', function() {
+        showPanel(chatPanel);
+        setActiveButton(chatBtn);
+        // 채팅 iframe 스타일 적용
+        setTimeout(modifyChatIframe, 500);
+      });
+      
+      dictBtn.addEventListener('click', function() {
+        showPanel(dictPanel);
+        setActiveButton(dictBtn);
+      });
+    }
+
+    window.onload = init;
+</script>
+</body>
+</html>
