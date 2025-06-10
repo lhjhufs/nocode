@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Web Page</title>
+</head>
+<body>
+  <h2>추천 콘텐츠 목록</h2>
+  <ul>
+    <li>베이징 여행</li>
+    <li>텐안먼 사건 요약</li>
+    <li>이허위안의 역사</li>
+  </ul>
+</body>
+</html>
