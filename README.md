@@ -6,10 +6,10 @@
 
 
 다음은 논문에 사용된 영상 및 인포그래픽 링크입니다. <br>
-[그림 75] ImageFX를 활용해 생성한 이미지로 제작한 영상 https://drive.google.com/file/d/15HmJVQ8CjkzJmvwfL9HQnrHFgBKzAjHK/view?usp=drive_link <br>
-[그림 80] HeyGen을 활용해 생성한 영상 화면 https://drive.google.com/file/d/10sOStUhfbT6JSKxZH6A9tTXVK2EKoapU/view?usp=drive_link <br>
-[그림 83] Sora를 활용해 제작한 마트에서 콜라는 구매하는 영상 화면 https://drive.google.com/file/d/10a5jEiHau9U1EsaeCBHNELebCnfV47JZ/view?usp=drive_link <br>
-[그림 85] Invideo를 활용하여 생성한 영상 https://drive.google.com/file/d/1O1bRaTHWacCIN5OZScLjaAWG2XiNDyNz/view?usp=drive_link <br>
-[그림 92] 한 줄 프롬프트 명령으로 제작한 랜딩 페이지 화면 https://beijing-travel-tips-e0d7fee.gamma.site/ <br>
-[그림 95] Piktochart를 활용해 비교 인포그래픽을 제작한 화면 https://create.piktochart.com/output/a5cf33b137fa-comparison-of-public-transportation-features-in-beijing-chi <br>
-[그림 102] Gamma를 통해 최종 제작된 인포그래픽 화면 일부 캡처 https://gamma.app/docs/-ylaa8y28tf21i0f <br>
+[그림 75] ImageFX를 활용해 생성한 이미지로 제작한 영상 <br>https://drive.google.com/file/d/15HmJVQ8CjkzJmvwfL9HQnrHFgBKzAjHK/view?usp=drive_link <br>
+[그림 80] HeyGen을 활용해 생성한 영상 화면 <br>https://drive.google.com/file/d/10sOStUhfbT6JSKxZH6A9tTXVK2EKoapU/view?usp=drive_link <br>
+[그림 83] Sora를 활용해 제작한 마트에서 콜라는 구매하는 영상 화면 <br>https://drive.google.com/file/d/10a5jEiHau9U1EsaeCBHNELebCnfV47JZ/view?usp=drive_link <br>
+[그림 85] Invideo를 활용하여 생성한 영상 <br>https://drive.google.com/file/d/1O1bRaTHWacCIN5OZScLjaAWG2XiNDyNz/view?usp=drive_link <br>
+[그림 92] 한 줄 프롬프트 명령으로 제작한 랜딩 페이지 화면 <br>https://beijing-travel-tips-e0d7fee.gamma.site/ <br>
+[그림 95] Piktochart를 활용해 비교 인포그래픽을 제작한 화면 <br>https://create.piktochart.com/output/a5cf33b137fa-comparison-of-public-transportation-features-in-beijing-chi <br>
+[그림 102] Gamma를 통해 최종 제작된 인포그래픽 화면 일부 캡처 <br>https://gamma.app/docs/-ylaa8y28tf21i0f <br>
