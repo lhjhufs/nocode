@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>콘텐츠 카드 예시</title>
+  <style>
+    .tab-button {
+      padding: 10px;
+      background-color: #3498db;  /* 기본 파란색 */
+      border: none;
+      cursor: pointer;
+      margin-right: 5px;
+      color: white;
+    }
+    .tab-button.active {
+      background-color: #eee;  /* 클릭한 버튼은 회색 */
+      color: black;
+    }
+    .tab-content {
+      padding: 20px;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab-container">
+    <button class="tab-button active" onclick="openTab('tab1', this)">SIM카드 구매하기</button>
+    <button class="tab-button" onclick="openTab('tab2', this)">환전하기</button>
+  </div>
+  <div id="tab1" class="tab-content" style="display: block;">
+    [관련 지하철역] 종관춘(中关村)역 [상황설명] 종관촌에 가서 스마트폰에 사용할 SIM카드 구매하기 [학습목표] 중국 내 SIM카드 구매 및 등록 절차에 필요한 표현 습득 등 통신 관련 용어 및 절차 이해와 구매 과정에서의 기본 소통 능력 배양
+  </div>
+  <div id="tab2" class="tab-content" style="display: none;">
+    환전 관련 내용이 들어갑니다.
+  </div>
+  <script>
+    function openTab(tabId, btn) {
+      // 모든 탭 내용 숨김
+      var contents = document.querySelectorAll('.tab-content');
+      contents.forEach(function(content) {
+        content.style.display = 'none';
+      });
+      // 모든 버튼에서 active 제거
+      var buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(function(button) {
+        button.classList.remove('active');
+      });
+      // 선택된 탭만 보이게
+      document.getElementById(tabId).style.display = 'block';
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
