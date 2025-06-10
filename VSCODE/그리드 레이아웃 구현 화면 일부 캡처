@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>콘텐츠 카드 예시</title>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .grid-item {
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 500;
+      box-shadow: none;
+      transition: box-shadow 0.2s;
+    }
+    .grid-item:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+      background: #f4f7fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-container">
+    <div class="grid-item">호텔 이용하기</div>
+    <div class="grid-item">자기소개하기</div>
+    <div class="grid-item">길 묻기</div>
+    <div class="grid-item">음식 주문하기</div>
+    <div class="grid-item">교통수단 이용하기</div>
+    <div class="grid-item">약속하기</div>
+    <div class="grid-item">미술관 방문하기</div>
+    <div class="grid-item">물건 사기</div>
+    <div class="grid-item">가격 흥정하기</div>
+  </div>
+</body>
+</html>
