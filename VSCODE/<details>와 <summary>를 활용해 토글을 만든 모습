@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Web Page</title>
+</head>
+<body>
+  <details>
+    <summary>더 알아보기</summary>
+    <p>이 콘텐츠에 대한 추가 설명입니다.</p>
+  </details>
+</body>
+</html>
