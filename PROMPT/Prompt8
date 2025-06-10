@@ -1,0 +1,1 @@
+Google Sheets A열에 중국어 단어를 입력하면 B열에 그것과 관련된 초급 수준의 중국어 문장을 생성하고, C열에는 병음이 D열에는 한국어가 생성되게 하고 싶어. Gemini API Key는 가지고 있어. Google Sheets에 단어를 입력하면 바로 생성하는 GAS 코드를 알려줘. 
