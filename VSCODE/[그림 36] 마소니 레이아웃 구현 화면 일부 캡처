@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>콘텐츠 예시</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .masonry-container {
+      column-count: 3;    /* 3열 자동 분배 */
+      column-gap: 16px;   /* 카드 간 간격 */
+    }
+    .card {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.25s;
+      background-color: transparent;
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    #inputContainer {
+      margin-bottom: 20px;
+    }
+    #inputContainer input {
+      padding: 10px;
+      width: 300px;
+      margin-right: 10px;
+    }
+    #inputContainer button {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>베이징 여행 중국어</h2>
+  <div id="inputContainer">
+    <input type="text" id="imgUrlInput" placeholder="이미지 링크 입력">
+    <button onclick="addCard()">카드 추가</button>
+  </div>
+  <div class="masonry-container" id="masonry">
+    <div class="card"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"></div>
+    <div class="card"><img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80"></div>
+    <div class="card"><img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=600&q=80"></div>
+    <div class="card"><img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"></div>
+    <div class="card"><img src="https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=600&q=80"></div>
+  </div>
+  <script>
+    function addCard() {
+      const url = document.getElementById('imgUrlInput').value;
+      if (!url) return;
+      const masonry = document.getElementById('masonry');
+      const card = document.createElement('div');
+      card.className = 'card';
+      const img = document.createElement('img');
+      img.src = url;
+      card.appendChild(img);
+      masonry.appendChild(card);
+      document.getElementById('imgUrlInput').value = '';
+    }
+  </script>
+</body>
+</html>
