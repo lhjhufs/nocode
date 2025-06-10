@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>어휘 학습 플래시 카드</title>
+</head>
+<body>
+  <div class="flashcard">
+    <h1>단어: 苹果</h1> <!-- 제목: 단어 이름 -->
+    <p>뜻: 사과</p> <!-- 단락: 단어 뜻 -->
+    <p>예문: 我今天早上吃了一个苹果。</p> <!-- 예문: 단어 예시 -->
+    <a href="https://example.com">더 많은 단어 보기</a>
+  </div>
+</body>
+</html>
