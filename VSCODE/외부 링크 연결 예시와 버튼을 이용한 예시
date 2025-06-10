@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Web Page</title>
+</head>
+<body>
+  <!-- 외부 링크 연결 예시 -->
+  <p>추가 학습 자료는 다음 링크를 참고하세요:<br>
+    <a href="https://example.com" target="_blank">추가 자료 보기</a>
+  </p>
+
+  <!-- 버튼을 이용한 추가 콘텐츠 불러오기 예시 -->
+  <p>더 많은 예문을 보고 싶다면 버튼을 눌러주세요:</p>
+  <button onclick="loadMoreExamples()">더 보기</button>
+</body>
+</html>
