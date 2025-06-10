@@ -3,9 +3,8 @@
 🔑 YOUR API KEY, YOUR FOLDER ID, YOUR SHEETS ID 부분은 본인이 가지고 있는 KEY와 ID를 넣으시면 됩니다. <br>
 🔖 GAS는 Google Sheets와 연동하여 작동합니다.반드시 '시트명'을 확인해 주세요. <br>
 🔗 https://liboss.kr/beijing/ 에서 확인 가능합니다. 
-
-
-다음은 논문에 사용된 영상 및 인포그래픽 링크입니다. <br>
+<br><br>
+다음은 논문에 사용된 영상 및 인포그래픽 링크입니다. <br><br>
 [그림 75] ImageFX를 활용해 생성한 이미지로 제작한 영상 <br>https://drive.google.com/file/d/15HmJVQ8CjkzJmvwfL9HQnrHFgBKzAjHK/view?usp=drive_link <br>
 [그림 80] HeyGen을 활용해 생성한 영상 화면 <br>https://drive.google.com/file/d/10sOStUhfbT6JSKxZH6A9tTXVK2EKoapU/view?usp=drive_link <br>
 [그림 83] Sora를 활용해 제작한 마트에서 콜라는 구매하는 영상 화면 <br>https://drive.google.com/file/d/10a5jEiHau9U1EsaeCBHNELebCnfV47JZ/view?usp=drive_link <br>
