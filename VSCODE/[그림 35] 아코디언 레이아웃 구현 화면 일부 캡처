@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>카드 레이아웃 예시</title>
+  <style>
+    .accordion-button.active {
+      background-color: #3498db; /* 활성화된 버튼 파란색 */
+      color: white;              /* 활성화된 버튼 글자색 흰색 */
+    }
+    .accordion-content {
+      display: none;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+    }
+    body {
+      font-family: '맑은 고딕', 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif;
+      margin: 0;
+      background: #fff;
+    }
+    .accordion {
+      margin: 32px auto;
+      width: 700px;
+      max-width: 95vw;
+      background: #fff;
+    }
+    .accordion-button {
+      width: 100%;
+      text-align: left;
+      padding: 16px;
+      font-size: 1em;
+      border: none;
+      border-bottom: 1px solid #eee;
+      background: #f4f6fa;
+      cursor: pointer;
+      transition: background 0.2s;
+      outline: none;
+    }
+    .accordion-button:not(:last-child) {
+      border-bottom: none;
+    }
+    .accordion-button:hover {
+      background: #e2eaff;
+    }
+  </style>
+</head>
+<body>
+  <div class="accordion">
+    <button class="accordion-button active" onclick="toggleAccordion(this)">사진찍기</button>
+    <div class="accordion-content" style="display:block;">
+      [관련 지하철역]<br>스차하이(什刹海)역<br><br>
+      [상황설명]<br>스차하이역 근처에 있는 후퉁(胡同)에 가서 사진찍기<br><br>
+      [학습목표]<br>관광지에서 사진 촬영 요청 및 관련 대화 표현 습득<br>
+      문화적 배경과 관광 명소 설명 능력 향상
+    </div>
+    <button class="accordion-button" onclick="toggleAccordion(this)">택배 보내기</button>
+    <div class="accordion-content">
+      [관련 지하철역]<br>둥팡밍주(东方明珠)역<br><br>
+      [상황설명]<br>둥팡밍주역 근처 우체국(邮局)에 가서 택배 보내기<br><br>
+      [학습목표]<br>택배 보내기 주요 절차 및 관련 표현 습득
+    </div>
+    <button class="accordion-button" onclick="toggleAccordion(this)">상태 표현하기</button>
+    <div class="accordion-content">
+      [관련 지하철역]<br>쯔진청(紫禁城)역<br><br>
+      [상황설명]<br>쯔진청역 근처 병원(医院)에 가서 상태 설명하기<br><br>
+      [학습목표]<br>상태 설명 관련 표현 및 상황별 의사소통 능력 습득
+    </div>
+  </div>
+  <script>
+    function toggleAccordion(button) {
+      const allButtons = document.querySelectorAll('.accordion-button');
+      const allContents = document.querySelectorAll('.accordion-content');
+      allButtons.forEach((btn, i) => {
+        btn.classList.remove('active');
+        allContents[i].style.display = 'none';
+      });
+      button.classList.add('active');
+      button.nextElementSibling.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
